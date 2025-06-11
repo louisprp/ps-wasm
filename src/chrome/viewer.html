@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8'/>
+  <title>PS-WASM</title>
+  <script src="pako_inflate.min.js"></script>
+  <script src='viewer.js'></script>
+</head>
+<body>
+  <iframe id='the_frame'></iframe>
+    <div id='wrapper'>
+    <pre id='downloader'></pre>
+    <pre id='dl_progress'></pre>
+    <pre id='dl_progress_msg'></pre>
+    <pre id='conv_progress'></pre>
+    <pre id='conv_status'></pre>
+    </div>
+  <style>
+  body {
+    margin: 0px;
+    overflow: hidden;
+  }
+  #wrapper {
+  overflow: scroll;
+	position: absolute;
+	margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+	font-size: 12px;
+	width: 100%;
+	height: 100%;
+	line-height: 24px;
+	}
+  </style>
+</body>
+</html>

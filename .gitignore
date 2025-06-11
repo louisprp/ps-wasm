@@ -1,5 +1,8 @@
 *.zip
 *.crx
 
-extension/scr1.png
-extension/scr2.png
+ghostscript-*
+test
+extension
+
+.DS_Store

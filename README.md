@@ -1,46 +1,32 @@
-PS-WASM: Rendering PostScript in browsers using GhostScript.
+# PS-WASM: Rendering PostScript in browsers using Ghostscript.
 
-This little wrapper allows GhostScript to be run with WebAssembly in browser,
+This little wrapper allows Ghostscript to be run with WebAssembly in browser,
 and thus allows PostScript files to be opened with modern browsers directly.
 
-Currently only Chrome is supported.
+## Usage
 
-------
+1. Set up the EMScripten environmen following [this tutorial](https://webassembly.org/getting-started/developers-guide/).
 
-August 2019: v0.2 updates:
+2. If compiling from latest git repo: set up `git`, `autoconf` and `automake`.
 
-* Large files are now supported.
-* PDF files can now be saved.
-* Improved URL and title display.
+3. Run `./compile.sh` with the following parameters:
 
-------
+```
+./compile.sh (--version=[latest|version.number]) (--browser=[chrome]) (--debug) (--skip_compile)
+```
+where the parameters are as follows:
+* `--version`: specify `latest` to compile from latest [git source](https://github.com/ArtifexSoftware/ghostpdl), or a specific version number such as `10.05.0`.
+    * Note: some versions (such as `10.05.1`) do compile but have bugs that prevent the program from running on certain files. Commit `dedddcb` of the git repo is the version used for the web store version of `v0.4` of this extension.
+* `--browser`: specify the target browser. Currently only `chrome` is supported.
+* `--debug`: compile the debug version, which prints a lot more info to the console.
+* `--skip_compile`: tell the script to assume the `.wasm` and `.js` files are already there and just pack the plugin. Useful for debugging.
 
-Note on cross-compilation:
+4. The plugin is then located at `extension/(browser)/ps-wasm`.
 
-Cross-compiling ghostscript was the nontrivial part of this project.
+## License
 
-After obtaining the source code from the [source repository](https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs926/ghostscript-9.26.tar.gz), one needs to copy files in the "code_patch" folder into their respective places.
+Ocha 2025. Code licensed under AGPLv3.
 
-One also needs to have the EMScripten environment set up; see [here](https://webassembly.org/getting-started/developers-guide/) for a tutorial.
-
-Then one can run the following command for setting up configure:
-
-`emconfigure ./configure --disable-threading --disable-cups --disable-dbus --disable-gtk --with-drivers=PS CC=emcc CCAUX=gcc --with-arch_h=~/ghostscript-9.26/arch/wasm.h`
-
-Followed by the following "make" command:
-
-`emmake make XE=".html" GS_LDFLAGS="-s ALLOW_MEMORY_GROWTH=1 -s EXIT_RUNTIME=1"`
-
-And one needs to copy everything from the "bin" folder to the extension folder.
-
-To include debugging information, instead use the following command, and look for results in "debugbin" (make sure you also copy the map files into the extension folder):
-
-`emmake make debug XE=".html" GS_LDFLAGS="-s ALLOW_MEMORY_GROWTH=1 -s EXIT_RUNTIME=1 -s ASSERTIONS=2 -g4"`
-
-------
-
-Ocha 2019. Code licensed under AGPLv3.
-
-GhostScript is released by Artifex under AGPLv3 and can be found [here](https://www.ghostscript.com/).
+Ghostscript is released by Artifex under AGPLv3 and can be found [here](https://www.ghostscript.com/).
 
 Pako is written by Andrey Tupitsin and Vitaly Puzrin and can found [here](https://github.com/nodeca/pako).
