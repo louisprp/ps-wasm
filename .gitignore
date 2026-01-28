@@ -1,8 +1,7 @@
 *.zip
-*.crx
 
 ghostscript-*
 test
-extension
+dist
 
 .DS_Store
